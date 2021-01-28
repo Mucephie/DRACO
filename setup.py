@@ -89,3 +89,24 @@ setup(
                        }
         )
 
+[config data]
+from configparser import ConfigParser
+import os
+config_object = ConfigParser()
+
+#Need two sections, API Key and Dorado Directory 
+config_object["API KEY"] = {
+    "admin": "",
+    "loginid": "",
+    "password": "x"
+}
+
+config_object["Dorado Directory"] = {
+    "host": "",
+}
+
+#Write the above sections to config.ini file
+with open('config.ini', 'w') as conf:
+    config_object.write(conf)
+    
+config_object.read("config.ini")
