@@ -1,0 +1,66 @@
+'''
+This is the configuration class for Dorado which utilizes the Astropy configuration 
+system.
+'''
+
+from astropy import config as _config
+from configparser import ConfigParser
+import dorado
+import os
+
+rootname = 'dorado'
+
+class ConfigNamespace(_config.ConfigNamespace):
+    rootname = 'dorado'
+    get_config = _config.get_config(packageormod = rootname, rootname = rootname)
+    config_dir = _config.get_config_dir(rootname)
+    print(config_dir)
+    
+config = ConfigParser()
+config_object = ConfigParser()
+api_key= 11 #enter api_key
+config.read('api_key')
+config.set('key', 'api_key', '11') #'enter api_key')
+
+
+with open('api_key', 'w') as f:
+    config.write(f)
+print (config.get('key', 'api_key'))
+
+save_path = 'config'
+
+
+class ConfigItem(_config.ConfigItem):
+    rootname = 'dorado'  
+
+with open('config.ini', 'w') as conf:
+    config_object.write(conf)
+    
+config_object.read("config.ini")
+
+
+conf = ConfigNamespace()
+print('Dorado directory created: ', conf.config_dir)
+
+__all__ = ['conf']
+
+
+########## CHANGING PASSWORD
+
+from configparser import ConfigParser
+
+#Read config.ini file
+config_object = ConfigParser()
+config_object.read("config.ini")
+
+
+#userinfo = config_object['api_key']
+
+
+config.set('key', 'api_key', '31')
+
+with open('config.ini', 'w') as conf:
+    config_object.write(conf)
+print (config.get('key', 'api_key'))
+
+save_path = 'config' 
